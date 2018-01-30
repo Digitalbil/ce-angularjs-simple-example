@@ -1,0 +1,10 @@
+{
+  "name": "ce-angularjs-simple-example",
+  "version": "1.0.0",
+  "dependencies": {
+    "chat-engine": "^0.8.4",
+    "chat-engine-online-user-search": "0.0.10",
+    "chat-engine-random-username": "0.0.5",
+    "chat-engine-typing-indicator": "0.0.9"
+  }
+}
