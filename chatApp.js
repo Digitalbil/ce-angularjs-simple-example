@@ -15,6 +15,6 @@ angular.module('chatApp', ['open-chat-framework'])
     $scope.ChatEngine.connect(new Date().getTime(), {}, 'auth-key');
 
     $scope.ChatEngine.on('$.ready', (data) => {
-      console.log(data);
+      $scope.me = data.me;
     });
   });
