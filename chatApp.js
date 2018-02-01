@@ -14,7 +14,7 @@ angular.module('chatApp', ['open-chat-framework'])
     // set a global array of chatrooms
     $rootScope.chats = [];
   }])
-  .controller('chatAppController', function($scope) {
+  .controller('chatAppController', function ($scope) {
     $scope.ChatEngine.connect(new Date().getTime(), {}, 'auth-key');
 
     $scope.ChatEngine.on('$.ready', (data) => {
@@ -65,7 +65,7 @@ angular.module('chatApp', ['open-chat-framework'])
       });
     };
   })
-  .controller('chat', function($scope) {
+  .controller('chat', function ($scope) {
     // every chat has a list of messages
     $scope.messages = [];
 
@@ -86,4 +86,10 @@ angular.module('chatApp', ['open-chat-framework'])
       // add the message to the array
       $scope.messages.push(payload);
     });
+
+    // leave a chatroom and remove from global chat list
+    $scope.leave = function (index) {
+      $scope.chat.leave();
+      $scope.chats.splice(index, 1);
+    };
   });
