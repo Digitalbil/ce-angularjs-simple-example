@@ -16,18 +16,4 @@ angular.module('chatApp', ['open-chat-framework'])
       $scope.chat = $scope.ChatEngine.global;
       $scope.chat.plugin(ChatEngineCore.plugin['chat-engine-online-user-search']({ prop: 'state.username' }));
     });
-
-    $scope.search = function () {
-      let found = $scope.chat.onlineUserSearch.search($scope.mySearch);
-
-      // hide every user
-      for(let uuid in $scope.chat.users) {
-        $scope.chat.users[uuid].hideWhileSearch = true;
-      }
-
-      // show all found users
-      for(let i in found) {
-        $scope.chat.users[found[i].uuid].hideWhileSearch = false;
-      }
-    }
   });
