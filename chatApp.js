@@ -5,11 +5,14 @@ angular.module('chatApp', ['open-chat-framework'])
       subscribeKey: 'sub-c-6c6c021c-c4e2-11e7-9628-f616d8b03518'
     }, {
       debug: true,
-      globalChannel: 'chat-engine-angular-simple1'
+      globalChannel: 'chat-engine-angular-simple'
     });
 
     // bind open chat framework angular plugin
     ngChatEngine.bind($rootScope.ChatEngine);
+
+    // set a global array of chatrooms
+    $rootScope.chats = [];
   }])
   .controller('chatAppController', function($scope) {
     $scope.ChatEngine.connect(new Date().getTime(), {}, 'auth-key');
@@ -37,4 +40,19 @@ angular.module('chatApp', ['open-chat-framework'])
         $scope.chat.users[found[i].uuid].hideWhileSearch = false;
       }
     }
+
+    // create a new chat
+    $scope.newChat = function(user) {
+      // define a channel
+      let chat = new Date().getTime();
+      // create a new chat with that channel
+      let newChat = new $scope.ChatEngine.Chat(chat);
+      // we need to auth ourselves before we can invite others
+      newChat.on('$.connected', () => {
+        // this fires a private invite to the user
+        newChat.invite(user);
+        // add the chat to the list
+        $scope.chats.push(newChat);
+      });
+    };
   });
